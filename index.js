@@ -16,16 +16,30 @@ const escapeRegex = (str) => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
  * Client Events
  */
 // Statement on discord success online
+
+
 client.on('ready', () => {
   console.log(`${client.user.tag} was Online!\n\nServing of:\n# ${client.guilds.cache.size} servers.\n# ${client.channels.cache.size} channels.\n# ${client.users.cache.size} users`)
-  client.user.setPresence({
-    status: 'online',
-    activity: {
-      name: `${prefix}help`,
-      type: 'LISTENING'
-    }
   })
-})
+
+
+
+client.on('ready', () => {
+
+  let statuses = [
+    `${prefix}help`,
+    `${client.users.cache.size} User`,
+    "discord.gg/48YjQ7Y",
+    `${client.guilds.cache.size} Server`
+  ]
+  setInterval(function() {
+        let status = statuses [Math.floor(Math.random() * statuses.length)]; // generates a random number between 1 and the length of the activities array list (in this case 5).
+        client.user.setActivity(status, {type: "LISTENING"}); // kasih output dari list tadi
+    }, 5000); // Hitungan miliseconds
+});
+
+
+
 client.on('warn', (info) => console.log(info))
 client.on('error', console.error)
 
@@ -72,7 +86,8 @@ client.on('message', async (message) => {
     if (now < expirationTime) {
       const timeLeft = (expirationTime - now) / 1000
       return message.reply(
-        `Tolong tunggu ${timeLeft.toFixed(1)} detik untuk menggunakan lagi perintah \`${command.name}\``
+        `That command is on cooldown for ${timeLeft.toFixed(1)} more seconds!` 
+        //`Tolong tunggu ${timeLeft.toFixed(1)} detik untuk menggunakan lagi perintah \`${command.name}\``
       )
     }
   }
