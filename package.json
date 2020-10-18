@@ -2,7 +2,7 @@
   "//1": "describes your app and its dependencies",
   "//2": "https://docs.npmjs.com/files/package.json",
   "//3": "updating this file will download and update your packages",
-  "name": "seawaves-project-aliazhar",
+  "name": "hello-express",
   "version": "0.0.1",
   "description": "A simple Node app built on Express, instantly up and running.",
   "main": "index.js",
@@ -12,15 +12,18 @@
   "dependencies": {
     "express": "^4.17.1",
     "discord.js": "^12.3.1",
+    "ffmpeg": "^0.0.4",
+    "fluent-ffmpeg": "^2.1.2",
     "@discordjs/opus": "^0.3.2",
-    "moment": "^2.29.1",
-    "moment-duration-format": "^2.3.2"
+    "ytdl-core": "^3.4.0",
+    "moment-duration-format": "^2.3.2",
+    "moment": "^2.29.1"
   },
   "engines": {
     "node": "12.x"
   },
   "repository": {
-    "url": "https://glitch.com/edit/#!/libot-project-aliazhar"
+    "url": "https://glitch.com/edit/#!/seawave-project-aliazhar"
   },
   "license": "MIT",
   "keywords": [
