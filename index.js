@@ -1,8 +1,8 @@
-const { Client, Collection } = require('discord.js')
+const { Client, Collection, Permissions} = require('discord.js')
 const { readdirSync } = require('fs')
 const { join } = require('path')
 const { prefix } = require('./prefix.json')
-
+const { Discord, MessageEmbed } = require('discord.js');
 const client = new Client({ disableMentions: 'everyone' })
 
 client.login(process.env.DISCORD_TOKEN)
@@ -11,7 +11,12 @@ client.prefix = prefix
 client.queue = new Map()
 const cooldowns = new Collection()
 const escapeRegex = (str) => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+const express = require("express")
+const app = express()
 
+app.get("/", (req, res) => res.sendStatus(200))
+
+app.listen(process.env.PORT)
 /**
  * Client Events
  */
@@ -20,7 +25,12 @@ const escapeRegex = (str) => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 
 client.on('ready', () => {
   console.log(`${client.user.tag} was Online!\n\nServing of:\n# ${client.guilds.cache.size} servers.\n# ${client.channels.cache.size} channels.\n# ${client.users.cache.size} users`)
-  })
+  client.user.setPresence({
+    status: 'online'
+    
+    }
+  )
+})
 
 
 
@@ -33,9 +43,9 @@ client.on('ready', () => {
     `${client.guilds.cache.size} Server`
   ]
   setInterval(function() {
-        let status = statuses [Math.floor(Math.random() * statuses.length)]; // generates a random number between 1 and the length of the activities array list (in this case 5).
-        client.user.setActivity(status, {type: "LISTENING"}); // kasih output dari list tadi
-    }, 5000); // Hitungan miliseconds
+        let status = statuses [Math.floor(Math.random() * statuses.length)];
+        client.user.setActivity(status, {type: "LISTENING"}); // url: "https://www.twitch.tv/aliaz05"}); 
+    }, 5000); 
 });
 
 
@@ -43,13 +53,14 @@ client.on('ready', () => {
 client.on('warn', (info) => console.log(info))
 client.on('error', console.error)
 
+
 /**
  * Import all commands on folder commands
  */
 
 const commandFiles = readdirSync(join(__dirname, 'commands')).filter((file) => file.endsWith('.js'))
 for (const file of commandFiles) {
-  const command = require(join(__dirname, 'commands', `${file}`))
+ const command = require(join(__dirname, 'commands', `${file}`))
   client.commands.set(command.name, command)
 }
 
@@ -101,4 +112,52 @@ client.on('message', async (message) => {
     console.error(error)
     message.channel.send("something wrong with the command").catch(console.error)
   }
+
 })
+
+
+
+ client.on('message', message => {
+  //const BannedWord = ["darn", "shucks", "frak", "shite"];
+  //if( BannedWord.some(word => message.content.includes(word)) ) {
+  //message.reply("Oh no you said a bad word!!!");
+  // Or just do message.delete();
+  //}
+  //const lo = ["lo", "lu"];
+  //if( lo.some(word => message.content.includes(word)) ) {
+  //if (message.author.bot) return
+  //message.channel.send("LU");
+  //}
+  if(message.content === "lo") {
+    message.channel.send("Lo >:D");
+  }
+  if(message.content === "wat") {
+    
+    message.channel.send("Say what?");
+    
+  }
+  if(message.content === 'lol') {
+    message.channel.send('apa elo');
+  }
+  
+  
+   
+});
+
+client.on("message", message => {
+  if (message.author.bot) return;
+  if (!message.guild) return;
+
+  let tagbot = message.mentions.users.first();
+  let auser = message.author;
+  if (!tagbot) return;
+  if (tagbot.id === auser.id) {
+    //message.channel.send(`${auser}, you cant tag yourself!`);
+    return;
+  } else if (tagbot.id === message.client.user.id) {
+    const embed = new MessageEmbed()
+    message.reply("Why You Bully Me ?");
+    return;
+  } 
+    
+}) 
