@@ -2,6 +2,7 @@ module.exports = {
   name: 'penis',
   cooldown: 3,
   description: "Penis Command",
+  aliases: "pp",
   execute(message, args) {
     let user = message.mentions.users.first()
 
