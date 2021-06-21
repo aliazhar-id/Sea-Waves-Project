@@ -1,6 +1,5 @@
 module.exports = {
   name: 'purge',
-  cooldown: 3,
   description: 'purge msg.',
   async execute (message, args) {
 

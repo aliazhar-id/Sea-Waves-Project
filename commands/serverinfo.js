@@ -1,15 +1,9 @@
-const Discord = require('discord.js')
-const client = new Discord.Client()
-const moment = require('moment')
-require('moment-duration-format')
+const moment = require('moment');
 
 module.exports = {
-  
   name: 'serverinfo',
-  cooldown: 3,
-  execute (message, args) {
+  execute(message, args) {
      if (!message.member.permissions.has("ADMINISTRATOR")) return;
-    //if(message.author.id !== process.env.ownerID) return;
     let channels = message.guild.channels
     let text = channels.cache.filter(r => r.type === "text").size,
         vc = channels.cache.filter(r => r.type === "voice").size,
@@ -25,7 +19,7 @@ module.exports = {
     fields: [
 		{
 			name: '**Owner**',
-			value: `${message.guild.owner.user.tag}`,
+			value: `<@${message.guild.ownerID}>`,
       inline: true,
 		},
 		{
