@@ -14,6 +14,16 @@ for (const file of commandFiles) {
 
 client.once('ready', () => {
 	console.log('Ready!');
+	let statuses = [
+    `${prefix}help`,
+    `${client.users.cache.size} User`,
+    "discord.gg/48YjQ7Y",
+    `${client.guilds.cache.size} Server`
+  ]
+  setInterval(function() {
+        let status = statuses [Math.floor(Math.random() * statuses.length)];
+        client.user.setActivity(status, {type: "LISTENING"}); // url: "https://www.twitch.tv/aliaz05"}); 
+    }, 5000); 
 });
 
 client.on('message', message => {
